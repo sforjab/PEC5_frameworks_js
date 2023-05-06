@@ -3,8 +3,8 @@
     [class]="isOnSale ? 'onSale' : ''">
         <img [src]="imageUrl" [alt]="name" />
         <div class="name">{{ name }}</div>
-        <div class="price">{{ price }} €</div>
-        <div class="quantity-container">
+        <div class="price" [ngClass]="{'unavalaible': !isOnSale}">{{ price }} €</div>
+        <div class="quantity-container" *ngIf="isOnSale">
             <button (click)="decrement()" [disabled]="quantityInCart === 0">-</button>
             <div class="quantityInCart">{{ quantityInCart }}</div>
             <button (click)="increment()">+</button>

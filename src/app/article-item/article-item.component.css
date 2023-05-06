@@ -18,12 +18,12 @@
     background-color: #10d1df;
 }
 
-/* .notOnSale {
-    background-color: transparent;
-} */
-
 .article-item-container img {
     width: 80%;
+}
+
+.unavalaible {
+    color: #d3d3d3;
 }
 
 .quantity-container {
