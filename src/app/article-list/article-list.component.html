@@ -1,0 +1,3 @@
+<div class="article-list-container">
+    <app-article-item *ngFor="let article of articles" [article]="article" (articleQuantityChange)="onArticleQuantityChange($event)"></app-article-item>
+</div>
