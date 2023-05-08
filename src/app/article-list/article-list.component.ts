@@ -8,6 +8,7 @@ import { ArticleQuantityChange } from '../models/article-quantity-change';
   styleUrls: ['./article-list.component.css']
 })
 export class ArticleListComponent implements OnInit{
+  // Array de objetos Article
   articles: Article[] = [
     { 
       id: 1, 
@@ -18,7 +19,7 @@ export class ArticleListComponent implements OnInit{
       quantityInCart: 0 
     },
     { id: 2, 
-      name: 'Mike Dunk Low', 
+      name: 'Nike Dunk Low', 
       imageUrl: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ba65b84e-8236-42e1-a3a1-1396a0f4460e/dunk-low-zapatillas-fhBsJ7.png', 
       price: 120, 
       isOnSale: true, 
@@ -34,9 +35,12 @@ export class ArticleListComponent implements OnInit{
   ];
 
   ngOnInit(): void { }
-
+  
+  // Este método es llamado cuando cambia la cantidad de un artículo en el componente hijo
   onArticleQuantityChange(event: ArticleQuantityChange) {
+    // Buscamos el índice del artículo que ha cambiado
     const articleIndex = this.articles.findIndex(article => article.id === event.article.id);
+    // Actualizamos la cantidad de ese artículo en el array de artículos
     this.articles[articleIndex].quantityInCart = event.quantity;
   }
 }
