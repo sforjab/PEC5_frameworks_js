@@ -1,0 +1,56 @@
+<div class="form-group">
+    <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+      <div class="article-name">
+        <label for="name">Nombre del artículo:</label>
+        <input type="text"
+              id="name"
+              placeholder="Nombre del artículo"
+              name="name"
+              formControlName="name">
+        <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="error-message">
+            <div *ngIf="name?.errors?.['required']">El nombre del artículo es obligatorio.</div>
+            <div *ngIf="name?.errors?.['forbiddenNameError']">El nombre del artículo no es válido.</div>
+        </div> 
+      </div>
+      <div class="article-price">
+        <label for="price">Precio:</label>
+        <input type="number"
+              id="price"
+              placeholder="Precio"
+              name="price"
+              formControlName="price">
+        <div *ngIf="price?.invalid && (price?.dirty || price?.touched)" class="error-message">
+        <div *ngIf="price?.errors?.['required']">El precio es obligatorio.</div>
+        <div *ngIf="price?.errors?.['min']">El precio debe ser mayor o igual a 0.1.</div>
+        </div>
+      </div>
+      <div class="article-image">
+        <label for="imageUrl">URL de la imagen:</label>
+        <input type="text"
+              id="imageUrl"
+              placeholder="URL de la imagen"
+              name="imageUrl"
+              formControlName="imageUrl">
+        <div *ngIf="imageUrl?.invalid && (imageUrl?.dirty || imageUrl?.touched)" class="error-message">
+        <div *ngIf="imageUrl?.errors?.['required']">La URL de la imagen es obligatoria.</div>
+        <div *ngIf="imageUrl?.errors?.['pattern']">La URL de la imagen no es válida.</div>
+        </div>
+      </div>
+      <div class="article-onsale">
+        <label for="isOnSale">¿Está en venta?:</label>
+        <input type="checkbox"
+            id="isOnSale"
+            name="isOnSale"
+            formControlName="isOnSale">
+      </div>
+      <button type="submit">Crear</button>
+    </form>
+  </div>
+  <div *ngIf="submitted && submittedValues">
+    <h4>El artículo "{{ submittedValues.name }}" se ha creado con los siguientes datos:</h4>
+    <ul>
+      <li><strong>Precio: </strong>{{ submittedValues.price }}</li>
+      <li><strong>URL de la imagen: </strong>{{ submittedValues.imageUrl }}</li>
+      <li><strong>¿EStá en venta?: </strong>{{ submittedValues.isOnSale }}</li>
+    </ul>
+  </div>  

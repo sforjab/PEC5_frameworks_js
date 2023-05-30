@@ -3,9 +3,4 @@
 
 <app-article-list *ngIf="currentComponent === 'articleList'"></app-article-list>
 <app-article-new-template *ngIf="currentComponent === 'newArticleTemplate'"></app-article-new-template>
-
-
-<!-- Mostramos el componente app-article-new-reactive -->
-<!-- <div *ngIf="showArticleNewReactive">
-  <app-article-new-reactive></app-article-new-reactive>
-</div> -->
+<app-article-new-reactive *ngIf="currentComponent === 'newArticleReactive'"></app-article-new-reactive>

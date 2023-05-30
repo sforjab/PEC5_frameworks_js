@@ -14,7 +14,7 @@ export class ArticleNewTemplateComponent {
 
   constructor() {}
 
-  createArticle(articleForm: NgForm) {
+  createArticle(articleForm: NgForm): void {
     if (articleForm.valid) {
       this.article = articleForm.value.article;
       if (typeof this.article.isOnSale === 'undefined') {

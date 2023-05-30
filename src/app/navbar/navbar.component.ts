@@ -19,4 +19,9 @@ export class NavbarComponent {
     this.appComponent.currentComponent = 'newArticleTemplate';
     this.location.go('/newArticleTemplate');
   }
+
+  showArticleNewReactive() {
+    this.appComponent.currentComponent = 'newArticleReactive';
+    this.location.go('/newArticleReactive');
+  }
 }
