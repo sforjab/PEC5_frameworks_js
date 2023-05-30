@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { AppComponent } from 'app/app.component';
 
 @Component({
   selector: 'app-navbar',
@@ -6,26 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  showArticleList: boolean = true;
-  showArticleNewTemplate: boolean = false;
-  showArticleNewReactive: boolean = false;
+  constructor(private appComponent: AppComponent, private location: Location) {}
 
-  // Funciones para cambiar la visibilidad de los componentes
-  showList(): void {
-    this.showArticleList = true;
-    this.showArticleNewTemplate = false;
-    this.showArticleNewReactive = false;
+  showArticleList() {
+    this.appComponent.currentComponent = 'articleList';
+    this.location.go('/articleList');
   }
 
-  showNewTemplate(): void {
-    this.showArticleList = false;
-    this.showArticleNewTemplate = true;
-    this.showArticleNewReactive = false;
-  }
-
-  showNewReactive(): void {
-    this.showArticleList = false;
-    this.showArticleNewTemplate = false;
-    this.showArticleNewReactive = true;
+  showArticleNewTemplate() {
+    this.appComponent.currentComponent = 'newArticleTemplate';
+    this.location.go('/newArticleTemplate');
   }
 }
