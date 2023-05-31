@@ -15,13 +15,18 @@ export class ArticleNewTemplateComponent {
   constructor() {}
 
   createArticle(articleForm: NgForm): void {
+    // Comprobamos si el formulario es válido
     if (articleForm.valid) {
+      // Asignamos el valor del formulario al objeto 'article'
       this.article = articleForm.value.article;
+      // Verificamos si el campo 'isOnSale' ha sido rellenado y lo establecemos a 'false' por defecto
       if (typeof this.article.isOnSale === 'undefined') {
-        this.article.isOnSale = false; // Establecemos a false por defecto si no se ha rellenado el campo
+        this.article.isOnSale = false;
       }
+      // Imprimimos en la consola el objeto 'article' creado
       console.log('Creando artículo', this.article);
     } else {
+      // Si el formulario no es válido, se imprime un mensaje en la consola
       console.log('Formulario no válido');
     }
   }
