@@ -8,6 +8,7 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ArticleNewTemplateComponent } from './article-new-template/article-new-template.component';
 import { ArticleNewReactiveComponent } from './article-new-reactive/article-new-reactive.component';
+import { ArticleService } from './services/article.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ArticleNewReactiveComponent } from './article-new-reactive/article-new-
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ArticleService], // Añadimos el servicio como proveedor
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { ArticleService } from '../services/article.service';
 
 // Validador personalizado para el campo 'name'
 function nameArticleValidator(control: AbstractControl): ValidationErrors | null {
@@ -25,34 +26,48 @@ export class ArticleNewReactiveComponent {
   public submitted = false;
   // Almacenamos los valores enviados
   public submittedValues: any = null;
-    
-  constructor(private fb: FormBuilder) {
-    // Creamos el formulario reactivo para asignarlo a la propiedad 'articleForm'
-    this.createForm(); 
-    // Se obtiene la referencia del control 'name' y se le asignan validadores
-    this.articleForm.get('name')?.setValidators([Validators.required, nameArticleValidator]); 
-    // Se actualiza la validez del control 'name' después de asignar los validadores
-    this.articleForm.get('name')?.updateValueAndValidity();
-  }
 
-  // Creamos el formulario y sus controles con sus respectivos valores por defecto y validaciones
-  createForm(): void {
+  
+  constructor(private fb: FormBuilder, private articleService: ArticleService) {
     this.articleForm = this.fb.group({
-      name: new FormControl('', [Validators.required]),
-      price: new FormControl(null, [Validators.required, Validators.min(0.1)]),
-      imageUrl: new FormControl('', [Validators.required, Validators.pattern('^(https?:\\/\\/)(www\\.)?[A-Za-z0-9]+(\\.[A-Za-z]{2,3})\\/[^\s]*\\.(?:png|jpe?g|gif)$')]),
-      isOnSale: new FormControl(false)
+      name: ['', [Validators.required, nameArticleValidator]],
+      price: [null, [Validators.required, Validators.min(0.1)]],
+      imageUrl: ['', [Validators.required, Validators.pattern('^(https?:\\/\\/)(www\\.)?[A-Za-z0-9]+(\\.[A-Za-z]{2,3})\\/[^\s]*\\.(?:png|jpe?g|gif)$')]],
+      isOnSale: [false]
     });
   }
 
-   // Obtenemos los 'FormControl' de los distintos campos
+  // Obtenemos los 'FormControl' de los distintos campos
   get name() { return this.articleForm.get('name'); }
   get price() { return this.articleForm.get('price'); }
   get imageUrl() { return this.articleForm.get('imageUrl'); }
   get isOnSale() { return this.articleForm.get('isOnSale'); }
+
+  onSubmit(): void {
+    if (this.articleForm.valid) {
+      const article = this.articleForm.value;
+      this.articleService.create(article).subscribe(
+        () => {
+          // Lógica adicional después de crear el artículo, como redireccionar o mostrar un mensaje de éxito.
+          this.submittedValues = { ...this.articleForm.value };
+          this.submitted = true;
+          console.log('Creando artículo', this.articleForm.value);
+        },
+        error => {
+          // Manejo de errores en caso de fallo en la creación del artículo.
+        }
+      );
+    } else {
+      // Aseguramos que se muestren los mensajes de error marcando los campos como 'touched'
+      this.articleForm.markAllAsTouched();
+    }
+  }
+  
+}
+
   
   // Manejamos el evento de envío del formulario
-  onSubmit(): void {
+/*   onSubmit(): void {
     if (this.articleForm.valid) {
       // Almacenamos los valores enviados en 'submittedValues'
       this.submittedValues = { ...this.articleForm.value }; 
@@ -62,6 +77,6 @@ export class ArticleNewReactiveComponent {
     } else {
       // Aseguramos que se muestren los mensajes de error marcando los campos como 'touched'
       this.articleForm.markAllAsTouched(); 
-    }  
-  }
-}
+    }   */
+/*   }
+} */
